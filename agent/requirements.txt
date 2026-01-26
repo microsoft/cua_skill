@@ -1,0 +1,28 @@
+psutil
+pywinauto
+pyautogui
+requests
+pillow
+pydantic
+rich
+numpy
+dotenv
+graphviz
+pydot
+pygraphviz
+# conda install -c conda-forge python-graphviz
+
+
+
+### this is the requirements to be added to WindowsAgentArena/src/win-arena-container/client/requirements.txt
+### You need to rebuild image for the requirements to take effect
+pywinauto
+pydantic
+rich
+dotenv
+graphviz
+pydot
+pygraphviz
+# conda install -c conda-forge python-graphviz
+sentence-transformers
+nltk

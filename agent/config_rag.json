@@ -1,0 +1,71 @@
+{
+    "name": "CUA_RAG_Agent",
+    "version": "1.0.0",
+    "platform": "windows",
+    "max_attempts": 1,
+    "max_grounding_attempts": 3,
+    "max_steps": 30,
+    "max_wall_time": 2000,
+    "step_interval_time": 1,
+    "env": {
+        "name": "windows_env",
+        "platform": "windows",
+        "url": "localhost",
+        "screen_height": null,
+        "screen_width": null,
+        "observation_type": "screenshot_a11y_tree",
+        "observe_screenshot_in_bytes": true,
+        "a11y_tree_max_tokens": 1000
+    },
+    "mixture_grounding": {
+        "expertises": [
+            {
+                "model": "uitars_v1_grounding",
+                "weight": 1.0,
+                "azure_endpoint": true,
+                "endpoint_url": "https://cuakg-grounding-endpoint.westus3.inference.ml.azure.com/score",
+                "bearer_key_env_var": "UITARS_V1_BEARER_KEY"
+            },
+            {
+                "model": "phi_v_grounding",
+                "weight": 0.0,
+                "azure_endpoint": true,
+                "endpoint_url": "https://phi-v-grounding.uksouth.inference.ml.azure.com/score",
+                "bearer_key_env_var": "PHI_V_GROUNDING_BEARER_KEY"
+            },
+            {
+                "model": "uia_tree",
+                "weight": 0.0
+            }
+        ]
+    },
+    "planner": {
+        "model_class": "gpt",
+        "expertises": {
+            "gpt": {
+                "deployment": "gpt-5-low",
+                "azure_endpoint": true,
+                "api_version": "2025-01-01-preview",
+                "endpoint": "https://asgoai-eastus2.openai.azure.com",
+                "token_scope": "https://cognitiveservices.azure.com/.default"
+            },
+            "qwen": {
+                "model_path": "Qwen/Qwen3-VL-32B-Instruct"
+            }
+        }
+    },
+    "rag": {
+        "rel_index_dir": "asset/rag_index/actions",
+        "rel_action_sample_path": "",
+        "model_name": "Qwen/Qwen3-Embedding-0.6B",
+        "semantic_weight": 0.7
+    },
+    "logger": {
+        "enable": true,
+        "log_level_desc": "one of the following: [debug, info, warning, error, critical]",
+        "log_level": "debug",
+        "log_file": "log.jsonl",
+        "log_dir": "./results/cua_logs",
+        "record": true
+    }
+}

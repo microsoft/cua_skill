@@ -1,0 +1,10 @@
+pywinauto
+pydantic
+rich
+dotenv
+graphviz
+pydot
+sentence-transformers
+nltk
+torchvision
+transformers>=4.57.0
