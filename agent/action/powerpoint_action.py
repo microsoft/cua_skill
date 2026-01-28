@@ -11,8 +11,8 @@ __all__ = []
 use_hotkey = True
 use_mouse_click = False
 
-assert not (use_hotkey and use_mouse_click), "Only one of use_hotkey and use_mouse_click can be True."
-assert not (not use_hotkey and not use_mouse_click), "At least one of use_hotkey and use_mouse_click must be True."
+assert not (use_hotkey and use_mouse_click), "Only one of `use_hotkey` and `use_mouse_click` can be True."
+assert not (not use_hotkey and not use_mouse_click), "At least one of `use_hotkey` and `use_mouse_click` must be True."
 
 
 class PowerPointBaseAction(BaseComposeAction):
@@ -241,60 +241,6 @@ class PowerPointOpenFile(PowerPointBaseAction):
 
     def __init__(self, filename: str = None, **kwargs):
         super().__init__(filename=filename, **kwargs)
-
-        # if use_hotkey:
-        #     # We prefer using keyboard shortcuts than mouse clicks
-        #     self.add_path(
-        #         "hotkey_open_file",
-        #         path=[
-        #             HotKeyAction(keys=["alt", "o"], thought="Press Alt + O to swith to the open file page."),
-        #             WaitAction(duration=1.0),
-        #             HotKeyAction(keys=["o"], thought="Press O to open the browse dialog."),
-        #             WaitAction(duration=1.0),
-                    
-        #             HotKeyAction(keys=["alt", "d"], thought="Press Alt + D to focus on the folder path input area at the top of the browse dialog."),
-        #             WaitAction(duration=1.0),
-        #             TypeAction(text=os.path.dirname(filename), input_mode="copy_paste", thought=f"Type the path to the folder containing the file to open, '{os.path.dirname(filename)}'."),
-        #             WaitAction(duration=1.0),
-        #             HotKeyAction(keys=["enter"], thought="Press Enter to confirm the folder path."),
-        #             WaitAction(duration=1.0),
-                    
-        #             HotKeyAction(keys=["alt", "n"], thought="Press Alt + N to focus on the file name input area at the bottom of the browse dialog."),
-        #             TypeAction(text=os.path.basename(filename), input_mode="copy_paste", thought=f"Type the file name '{os.path.basename(filename)}' to open."),
-        #             WaitAction(duration=1.0),
-        #             HotKeyAction(keys=["enter"], thought="Press Enter to confirm and open the file."),
-        #             WaitAction(duration=4.0, thought="Wait for a few seconds to let PowerPoint load the presentation."),
-
-        #             HotKeyAction(keys=["esc"], thought="Press Escape to close any pop-up dialogs that may appear after opening the file."),
-        #             WaitAction(duration=1.0)
-        #         ]
-        #     )
-
-        # if use_mouse_click:
-        #     self.add_path(
-        #         "click_open_file",
-        #         path=[
-        #             # This action assumes we are on the main page, not in an existing presentation
-        #             SingleClickAction(thought="Click the 'Open' button to switch to the open file page."),
-        #             WaitAction(duration=1.0),
-        #             SingleClickAction(thought="Click the 'Browse' button to browse for a file on the computer."),
-        #             WaitAction(duration=1.0),
-        #             SingleClickAction(thought="Click the folder path input area at the top of the browse dialog to focus. You should click on the empty area in the input box (after the existing folder names, the area between the last '>' and drop down menu icon 'v') to place the cursor."),
-        #             WaitAction(duration=1.0),
-        #             TypeAction(text=os.path.dirname(filename), input_mode="copy_paste", thought=f"Type the path to the folder containing the file to open, '{os.path.dirname(filename)}'."),
-        #             WaitAction(duration=1.0),
-        #             HotKeyAction(keys=["enter"], thought="Press Enter to confirm the folder path."),
-        #             WaitAction(duration=1.0),
-        #             SingleClickAction(thought="Click the file name input area at the bottom of the browse dialog to focus."),
-        #             TypeAction(text=os.path.basename(filename), input_mode="copy_paste", thought=f"Type the file name '{os.path.basename(filename)}' to open."),
-        #             WaitAction(duration=1.0),
-        #             HotKeyAction(keys=["enter"], thought="Press Enter to confirm and open the file."),
-        #             WaitAction(duration=4.0, thought="Wait for a few seconds to let PowerPoint load the presentation."),
-
-        #             HotKeyAction(keys=["esc"], thought="Press Escape to close any pop-up dialogs that may appear after opening the file."),
-        #             WaitAction(duration=1.0)
-        #         ]
-        #     )
 
         # We open the file via PowerShell to avoid issues with different PowerPoint versions
         self.add_path(
