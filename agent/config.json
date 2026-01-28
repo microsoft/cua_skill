@@ -1,5 +1,5 @@
 {
-    "name": "CUA_Knowledge_Graph_Agent",
+    "name": "CUA_Skill_Agent",
     "version": "1.0.0",
     "platform": "windows",
     "max_attempts": 1,

@@ -1,0 +1,23 @@
+[
+    "click",
+    "double_click",
+    "triple_click",
+    "right_click",
+    "move_abs",
+    "drag",
+    "scroll",
+    "type",
+    "press_key",
+    "key_down",
+    "key_up",
+    "hot_key",
+    "screenshot",
+    "copy",
+    "paste",
+    "switch_window",
+    "wait",
+    "finish",
+    "error_env",
+    "call_user",
+    "pass"
+]

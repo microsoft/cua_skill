@@ -560,13 +560,13 @@ class PressKeyAction(BaseAction):
         description="Seconds between key presses."
     )
 
-    def __init__(self, thought: str = "", key: str = "", presses: int = 1, interval: float = 0.1, **kwargs):
+    def __init__(self, thought: str = "", key: str = "", presses: int = 1, interval: float = 0.0, **kwargs):
         super().__init__(thought=thought, key=key, presses=presses, interval=interval, **kwargs)
 
     def get_gui_code(self) -> str:
         key = self.key.value
         presses = self.presses.value if self.presses.value else 1
-        interval = self.interval.value if self.interval.value else 0.1
+        interval = self.interval.value if self.interval.value else 0.0
         return (
             "\nimport pyautogui"
             f"\npyautogui.press({repr(key)}, presses={presses}, interval={interval})"

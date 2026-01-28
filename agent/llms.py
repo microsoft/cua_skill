@@ -57,7 +57,6 @@ class GPT:
         self.endpoint = self.config.planner.expertises.gpt.endpoint
         self.api_version = self.config.planner.expertises.gpt.api_version
         self.azure_ad_token = os.getenv("AZURE_AD_TOKEN")
-
         if self.azure_ad_token is None or self.azure_ad_token == "":
             credential = DefaultAzureCredential()
             token_scope = self.config.planner.expertises.gpt.token_scope
@@ -125,7 +124,7 @@ class GPT:
         return {"role": "user", "content": text}
     
     def _get_completion(self, messages, isboolean):
-        if self.deployment == "gpt-5":
+        if "gpt-5" in self.deployment :
             response = self.client.chat.completions.create(
                 model=self.deployment,
                 messages=messages,
@@ -216,31 +215,50 @@ class Qwen:
     
 
 if __name__ == "__main__":
-    image_path = "/home/yinhengli/projects/cua_knowledge_graph/WindowsAgentArena/img/local_prepare_screen_setup.png"
+    image_path = "../WindowsAgentArena/img/architecture-azure.png"
     text = "Describe the image in detail."
     from box import Box
     gpt_config = {
         "planner": {
-            "model_class": "gpt",
-            "expertises": {
-                "deployment": "gpt-4o",
+        "model_class": "gpt",
+        "expertises": {
+            "gpt": {
+                "deployment": "gpt-5-2-minimal",
                 "azure_endpoint": True,
                 "api_version": "2025-01-01-preview",
-                "endpoint": "https://asgoai-eastus2.openai.azure.com"
+                "endpoint": "",
+                "token_scope": ""
+            },
+            "qwen": {
+                "model_path": "Qwen/Qwen3-VL-32B-Instruct"
             }
         }
+    
+    }
     }
     qwen_config = {
         "planner": {
-            "model_class": "qwen",
-            "model_path": "Qwen/Qwen3-VL-32B-Instruct"
+        "model_class": "qwen",
+        "expertises": {
+            "gpt": {
+                "deployment": "gpt-5-2-minimal",
+                "azure_endpoint": True,
+                "api_version": "2025-01-01-preview",
+                "endpoint": "",
+                "token_scope": ""
+            },
+            "qwen": {
+                "model_path": "Qwen/Qwen3-VL-32B-Instruct"
+            }
         }
+    
     }
-    # gpt_model = model_loader(Box(gpt_config))
-    # gpt_message = gpt_model.create_text_image_message(text, image_path)
-    # gpt_response = gpt_model.get_completion([gpt_message])
-    qwen_model = model_loader(Box(qwen_config))
-    qwen_message = qwen_model.create_text_image_message(text, image_path)
-    qwen_response = qwen_model.get_completion([qwen_message])
-    # print("GPT Response: ", gpt_response)
-    print("Qwen Response: ", qwen_response)
+    }
+    gpt_model = model_loader(Box(gpt_config))
+    gpt_message = gpt_model.create_text_image_message(text, image_path)
+    gpt_response = gpt_model.get_completion([gpt_message])
+    # qwen_model = model_loader(Box(qwen_config))
+    # qwen_message = qwen_model.create_text_image_message(text, image_path)
+    # qwen_response = qwen_model.get_completion([qwen_message])
+    print("GPT Response: ", gpt_response)
+    # print("Qwen Response: ", qwen_response)

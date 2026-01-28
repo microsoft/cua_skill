@@ -1,0 +1,73 @@
+{
+    "notepad": [
+        "366de66e-cbae-4d72-b042-26390db2b145-WOS",
+        "a7d4b6c5-569b-452e-9e1d-ffdb3d431d15-WOS"
+    ],
+    "microsoft_paint": [
+        "15f8de6e-3d39-40e4-af17-bdbb2393c0d9-WOS",
+        "3544ac9a-6aee-4a0b-a203-bc7b59b272b6-WOS",
+        "44dbac63-32bf-4cd2-81b4-ad6803ec812d-WOS"
+    ],
+    "settings": [
+        "37e10fc4-b4c5-4b02-a65c-bfae8bc51d3f-wos",
+        "46adf721-2949-4426-b069-010b7c128d8f-wos",
+        "9504989a-0d6e-4017-aefb-d359f6c752aa-wos",
+        "a659b26e-4e31-40c1-adaf-34742b6c44ac-wos",
+        "e8f68f22-1f6a-4cba-a97a-ac611bb4c67b-wos"
+    ],
+    "vlc": [
+        "215dfd39-f493-4bc3-a027-8a97d72c61bf-WOS",
+        "386dbd0e-0241-4a0a-b6a2-6704fba26b1c-WOS",
+        "8ba5ae7a-5ae5-4eab-9fcc-5dd4fe3abf89-2-WOS",
+        "8ba5ae7a-5ae5-4eab-9fcc-5dd4fe3abf89-WOS",
+        "8f080098-ddb1-424c-b438-4e96e5e4786e-WOS",
+        "9195653c-f4aa-453d-aa95-787f6ccfaae9-2-WOS",
+        "9195653c-f4aa-453d-aa95-787f6ccfaae9-WOS",
+        "INF-0d95d28a-9587-433b-a805-1fbe5467d598-WOS",
+        "INF-5ac2891a-eacd-4954-b339-98abba077adb-WOS",
+        "INF-7882ed6e-bece-4bf0-bada-c32dc1ddae72-WOS",
+        "INF-a1c3ab35-02de-4999-a7ed-2fd12c972c6e-WOS",
+        "INF-cb130f0d-d36f-4302-9838-b3baf46139b6-WOS",
+        "INF-d1ba14d0-fef8-4026-8418-5b581dc68ca0-WOS",
+        "INF-d70666e4-7348-42c7-a06a-664094c5df3c-WOS",
+        "a5bbbcd5-b398-4c91-83d4-55e1e31bbb81-WOS",
+        "aa4b5023-aef6-4ed9-bdc9-705f59ab9ad6-WOS",
+        "d06f0d4d-2cd5-4ede-8de9-598629438c6e-WOS",
+        "efcf0d81-0835-4880-b2fd-d866e8bc2294-WOS",
+        "f3977615-2b45-4ac5-8bba-80c17dbe2a37-WOS",
+        "fba2c100-79e8-42df-ae74-b592418d54f4-WOS",
+        "fcd3d211-80f9-53eg-bf85-c603529e65g5-1-WOS"
+    ],
+    "windows_calc": [
+        "28b91a24-5d97-4c2a-891c-dccbd3820c62-WOS",
+        "28b91a24-5d97-4c2a-891c-dccbd3820c62-WOS-2",
+        "28b91a24-5d97-4c2a-891c-dccbd3820c62-WOS-3"
+    ],
+    "clock": [
+        "02F10F89-7171-4D37-8550-A00BA8930CDF-2-WOS",
+        "02F10F89-7171-4D37-8550-A00BA8930CDF-WOS",
+        "91A30BE9-0E11-4374-8D43-41D4D097080A-WOS",
+        "91A30BE9-0E11-4374-8D43-41D4D097080A-WOS-2"
+    ],
+    "file_explorer": [
+        "016c9a9d-f2b9-4428-8fdb-f74f4439ece6-WOS",
+        "0c9dda13-428c-492b-900b-f48562111f93-WOS",
+        "1876fe7f-6fdc-5dd6-c9e0-237d4c8411f0-WOS",
+        "22e529ff-4199-4ffb-95b7-8e5be9b7a860-WOS",
+        "2b0c0844-bd4f-42ba-a25e-afb4267d51e2-WOS",
+        "2d292a2d-686b-4e72-80f7-af6c232b1258-WOS",
+        "34a4fee9-e52e-4a4a-96d2-68d35091504a-WOS",
+        "3bad5766-5186-42be-abe1-12eacc798d3a-WOS",
+        "7AB09EF1-331B-4A21-90C9-996ADE3B6E1A-WOS",
+        "7c70e16b-e14f-4baa-b046-3e022b2d0305-WOS",
+        "ac46b5cb-616a-46e0-b287-9628fd0dab06-WOS",
+        "b0c9dac6-52ba-4937-aabb-b0abdc2a8138-WOS",
+        "b12921b2-8772-4667-a960-067309906dd4-WOS",
+        "b12b2d3a-7da1-4aeb-97cc-6026d3975210-WOS",
+        "b8ab0ae1-d2b4-4e6f-b609-df7d76b456d7-WOS",
+        "e27984c7-968c-48d7-b2c3-6e45cdcc5249-WOS",
+        "f934d80d-84d2-4b46-953c-89f77b5a709a-WOS",
+        "5316686e-5688-4115-be24-052037df599f-WOS",
+        "5548314e-d807-4e9e-97e9-b3a4f9fd634f-WOS"
+    ]
+}

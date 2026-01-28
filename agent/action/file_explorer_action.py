@@ -133,38 +133,95 @@ class FileExplorerCloseWindow(FileExplorerBaseAction):
 # FileExplorerOpenFolder
 # ======================================================================
 
-@register("FileExplorerOpenFolder")
-class FileExplorerOpenFolder(FileExplorerBaseAction):
-    type: str = "file_explorer_open_folder"
+# @register("FileExplorerOpenFolder")
+# class FileExplorerOpenFolder(FileExplorerBaseAction):
+#     type: str = "file_explorer_open_folder"
 
-    folder_path: Argument = Argument(
+#     folder_path: Argument = Argument(
+#         value="C:\\Users",
+#         description="Path of the folder to open."
+#     )
+
+#     descriptions: List[str] = [
+#         "Open folder ${folder_path}.",
+#         "Navigate to ${folder_path}.",
+#         "Browse to ${folder_path}.",
+#         "Go to folder ${folder_path}.",
+#         "Access ${folder_path} in File Explorer.",
+#     ]
+
+#     def __init__(self, folder_path: str = "C:\\Users", **kwargs):
+#         folder_path = normalize_path(folder_path)
+#         super().__init__(folder_path=folder_path, **kwargs)
+
+#         self.add_path(
+#             "hotkey_open_folder",
+#             path=[
+#                 HotKeyAction(keys=["ctrl", "l"], thought="Focus the address bar."),
+#                 WaitAction(duration=0.1),
+#                 TypeAction(text=folder_path, thought=f"Type path '{folder_path}' to search for it."),
+#                 WaitAction(duration=0.1),
+#                 HotKeyAction(keys=["enter"], thought="Open folder."),
+#                 WaitAction(duration=0.1),
+#             ],
+#         )
+
+
+@register("FileExplorerOpenItemWithPath")
+class FileExplorerOpenItemWithPath(FileExplorerBaseAction):
+    type: str = "file_explorer_open_item_with_path"
+
+    path: Argument = Argument(
         value="C:\\Users",
-        description="Path of the folder to open."
+        description="Full path of the folder or the file to open."
     )
 
     descriptions: List[str] = [
-        "Open folder ${folder_path}.",
-        "Navigate to ${folder_path}.",
-        "Browse to ${folder_path}.",
-        "Go to folder ${folder_path}.",
-        "Access ${folder_path} in File Explorer.",
+        "Open the file or the folder with the given ${path}, only use it when the path is given and the item is not visible on the current screen.",
+        "Go to the file or folder with the given ${path}, only use it when the path is given and the item is not visible on the current screen.",
     ]
 
-    def __init__(self, folder_path: str = "C:\\Users", **kwargs):
-        folder_path = normalize_path(folder_path)
-        super().__init__(folder_path=folder_path, **kwargs)
+    def __init__(self, path: str = "C:\\Users", **kwargs):
+        path = normalize_path(path)
+        super().__init__(path=path, **kwargs)
 
         self.add_path(
-            "hotkey_open_folder",
+            "hotkey_open_item",
             path=[
                 HotKeyAction(keys=["ctrl", "l"], thought="Focus the address bar."),
                 WaitAction(duration=0.1),
-                TypeAction(text=folder_path, thought=f"Type path '{folder_path}' to search for it."),
-                WaitAction(duration=0.1),
-                HotKeyAction(keys=["enter"], thought="Open folder."),
+                TypeAction(text=path, thought=f"Type path '{path}' to search for it.", end_with_enter=True),
                 WaitAction(duration=0.1),
             ],
         )
+
+@register("FileExplorerOpenItem")
+class FileExplorerOpenItem(FileExplorerBaseAction):
+    type: str = "file_explorer_open_item"
+
+    target_item: Argument = Argument(
+        value="example.txt",
+        description="the name of the file or folder to open on the current screen"
+    )
+
+    descriptions: List[str] = [
+        "Open the file or the folder on the current screen with its name ${target_item}. Use this action when the path is not given but the file or folder is visible on the current screen.",
+        "Go to the file or folder with the given ${target_item}. Use this action when the path is not given but the file or folder is visible on the current screen.",
+    ]
+
+    def __init__(self, target_item: str = "example.txt", **kwargs):
+        target_item = normalize_path(target_item)
+        super().__init__(target_item=target_item, **kwargs)
+
+        self.add_path(
+            "click_open_item",
+            path=[
+                DoubleClickAction(thought=f"Select {target_item} on the current screen for double click to open it."),
+                WaitAction(duration=0.1),
+            ],
+        )
+
+
 
 
 # ======================================================================
@@ -178,7 +235,7 @@ class FileExplorerCopyItem(FileExplorerBaseAction):
     source_file: Argument = Argument(
         value="example.txt",
         # allow_special_tokens=True,
-        description="File to copy (supports ALL_SELECTED, ALL_RESULTS, ALL_ITEMS)."
+        description="the item name visible on the current screen."
     )
 
     descriptions: List[str] = [
@@ -195,7 +252,7 @@ class FileExplorerCopyItem(FileExplorerBaseAction):
         self.add_path(
             "hotkey_copy",
             path=[
-                SingleClickAction(thought=f"Click the first result in the File Explorer search results that matches {source_file}."),
+                SingleClickAction(thought=f"Click the item name {source_file} in the current file explorer window to select it."),
                 WaitAction(duration=0.2),
                 HotKeyAction(keys=["ctrl","c"], thought="Copy item."),
                 WaitAction(duration=0.5),
@@ -214,7 +271,7 @@ class FileExplorerCutItem(FileExplorerBaseAction):
     source_file: Argument = Argument(
         value="example.txt",
         # allow_special_tokens=True,
-        description="File to cut (supports ALL_SELECTED, ALL_RESULTS, ALL_ITEMS)."
+        description="the item name visible on the current screen."
     )
 
     descriptions: List[str] = [
@@ -231,6 +288,7 @@ class FileExplorerCutItem(FileExplorerBaseAction):
         self.add_path(
             "hotkey_cut",
             path=[
+                SingleClickAction(thought=f"Click the item name {source_file} in the current file explorer window to select it."),
                 HotKeyAction(keys=["ctrl","x"], thought="Cut item."),
                 WaitAction(duration=0.5),
             ],
@@ -241,26 +299,17 @@ class FileExplorerCutItem(FileExplorerBaseAction):
 # FileExplorerPasteItem
 # ======================================================================
 
-@register("FileExplorerPasteItem")
-class FileExplorerPasteItem(FileExplorerBaseAction):
-    type: str = "file_explorer_paste_item"
+@register("FileExplorerPasteHere")
+class FileExplorerPasteHere(FileExplorerBaseAction):
+    type: str = "file_explorer_paste_here"
 
-    source_file: Argument = Argument(
-        value="example.txt",
-        # allow_special_tokens=True,
-        description="Name of file from clipboard (ALL_SELECTED, ALL_RESULTS, ALL_CLIPPED, ALL_ITEMS allowed)."
-    )
 
     descriptions: List[str] = [
-        "Paste ${source_file} here.",
-        "Insert ${source_file} from clipboard.",
-        "Paste the copied or cut file ${source_file}.",
-        "Drop ${source_file} into this folder.",
-        "Paste item ${source_file} in File Explorer.",
+        "Paste item here. Assuming the item has already been copied or cut.",
     ]
 
-    def __init__(self, source_file="example.txt", **kwargs):
-        super().__init__(source_file=source_file, **kwargs)
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
 
         self.add_path(
             "paste_hotkey",
@@ -356,10 +405,10 @@ class FileExplorerCreateNewFolder(FileExplorerBaseAction):
     )
 
     descriptions: List[str] = [
-        "Create new folder named ${folder_name}.",
-        "Make a directory ${folder_name}.",
-        "Add new folder ${folder_name}.",
-        "Generate folder ${folder_name}.",
+        "Create new folder named ${folder_name} on the current File Explorer window.",
+        "Make a directory ${folder_name} on the current File Explorer window.",
+        "Add new folder ${folder_name} on the current File Explorer window.",
+        "Generate folder ${folder_name} on the current File Explorer window.",
     ]
 
     def __init__(self, folder_name="New Folder", **kwargs):
@@ -370,10 +419,8 @@ class FileExplorerCreateNewFolder(FileExplorerBaseAction):
             path=[
                 HotKeyAction(keys=["ctrl","shift","n"], thought="Create new folder."),
                 WaitAction(duration=0.3),
-                TypeAction(text=folder_name, input_mode="copy_paste", thought="Set folder name."),
+                TypeAction(text=folder_name, input_mode="keyboard", thought="Set folder name.", end_with_enter=True),
                 WaitAction(duration=0.2),
-                HotKeyAction(keys=["enter"], thought="Confirm new folder."),
-                WaitAction(duration=0.7),
             ],
         )
 
@@ -382,32 +429,32 @@ class FileExplorerCreateNewFolder(FileExplorerBaseAction):
 # Open File
 # ======================================================================
 
-@register("FileExplorerOpenFile")
-class FileExplorerOpenFile(FileExplorerBaseAction):
-    type: str = "file_explorer_open_file"
+# @register("FileExplorerOpenFile")
+# class FileExplorerOpenFile(FileExplorerBaseAction):
+#     type: str = "file_explorer_open_file"
 
-    filename: Argument = Argument(
-        value="example.txt",
-        description="File to open."
-    )
+#     filename: Argument = Argument(
+#         value="example.txt",
+#         description="File to open."
+#     )
 
-    descriptions: List[str] = [
-        "Open file ${filename}.",
-        "Double click ${filename}.",
-        "Load document ${filename}.",
-        "View ${filename} in default program.",
-    ]
+#     descriptions: List[str] = [
+#         "Open file ${filename}.",
+#         "Double click ${filename}.",
+#         "Load document ${filename}.",
+#         "View ${filename} in default program.",
+#     ]
 
-    def __init__(self, filename="example.txt", **kwargs):
-        super().__init__(filename=filename, **kwargs)
+#     def __init__(self, filename="example.txt", **kwargs):
+#         super().__init__(filename=filename, **kwargs)
 
-        self.add_path(
-            "double_click",
-            path=[
-                DoubleClickAction(thought=f"Double click {filename} to open."),
-                WaitAction(duration=1.2),
-            ],
-        )
+#         self.add_path(
+#             "double_click",
+#             path=[
+#                 DoubleClickAction(thought=f"Double click {filename} to open."),
+#                 WaitAction(duration=1.2),
+#             ],
+#         )
 
 
 # ======================================================================
@@ -509,7 +556,7 @@ class FileExplorerSelectAll(FileExplorerBaseAction):
         self.add_path(
             "hotkey_select_all",
             path=[
-                SingleClickAction(thought="Click inside list area."),
+                SingleClickAction(thought="Click the first item in the list."),
                 WaitAction(duration=0.2),
                 HotKeyAction(keys=["ctrl","a"], thought="Select all."),
                 WaitAction(duration=0.5),
@@ -606,33 +653,23 @@ class FileExplorerSortBy(FileExplorerBaseAction):
     def __init__(self, sort_key="Name", **kwargs):
         super().__init__(sort_key=sort_key, **kwargs)
 
-        path=[
-                SingleClickAction(thought="Click 'View' tab."),
-                WaitAction(duration=0.3),
-                SingleClickAction(thought="Click 'Sort by'."),
-                WaitAction(duration=0.3),
-                SingleClickAction(thought=f"Select '{sort_key}'."),
-                WaitAction(duration=0.5),
-        ]
-
         if sort_key in ["Size", "Date created", "Categories", "Authors", "Tags", "Title"]:
-            path = [
-                SingleClickAction(thought="Click 'View' tab."),
-                WaitAction(duration=0.3),
-                SingleClickAction(thought="Click 'Sort by'."),
-                WaitAction(duration=0.3),
-                SingleClickAction(thought=f"Click 'More' option in the submenu of 'Sort by'."),
-                WaitAction(duration=0.3),
-                SingleClickAction(thought=f"Select '{sort_key}' in the submenu of 'More'."),
-                WaitAction(duration=0.5),
+            self.add_path(
+                "click_sort_by_more",
+                path=[
+                    SingleClickAction(thought="Click 'Sort by' in the top toolbar of File Explorer to open the submenu."),
+                    WaitAction(duration=0.3),
+                    SingleClickAction(thought=f"Click 'More' option in the submenu of 'Sort by'."),
+                    WaitAction(duration=0.3),
+                    SingleClickAction(thought=f"Select '{sort_key}' in the submenu."),
+                    WaitAction(duration=0.5),
             ]
-
-        self.add_path(
+            )
+        else:
+            self.add_path(
             "click_sort_by",
             path=[
-                SingleClickAction(thought="Click 'View' tab."),
-                WaitAction(duration=0.3),
-                SingleClickAction(thought="Click 'Sort by'."),
+                SingleClickAction(thought="Click 'Sort by' in the top toolbar of File Explorer."),
                 WaitAction(duration=0.3),
                 SingleClickAction(thought=f"Select '{sort_key}'."),
                 WaitAction(duration=0.5),
@@ -693,7 +730,7 @@ class FileExplorerScroll(FileExplorerBaseAction):
         self.add_path(
             "scroll",
             path=[
-                SingleClickAction(thought="Click inside the file list area of File Explorer window to be able to scroll."),
+                SingleClickAction(thought="Click the first item in the file list to focus it."),
                 WaitAction(duration=0.2),
                 ScrollAction(direction=direction, dy=dy),
                 WaitAction(duration=0.2),
@@ -749,6 +786,11 @@ class FileExplorerEmptyRecycleBin(FileExplorerBaseAction):
         self.add_path(
             "empty_recycle_bin",
             path=[
+                
+                HotKeyAction(keys=["ctrl","l"], thought="Focus the address bar."),
+                WaitAction(duration=0.3),
+                TypeAction(text="Recycle Bin", thought="Type the name Recycle Bin.", end_with_enter=True),
+                WaitAction(duration=0.3),
                 SingleClickAction(thought="In the top command bar of File Explorer, click the button labeled “Empty Recycle Bin”."
                                   "This button is located above the file list, next to “Restore all items”."
                                   "Do NOT click anything in the file list or the left navigation pane."),
@@ -781,6 +823,10 @@ class FileExplorerRestoreItem(FileExplorerBaseAction):
         self.add_path(
             "restore_item",
             path=[
+                HotKeyAction(keys=["ctrl","l"], thought="Focus the address bar."),
+                WaitAction(duration=0.3),
+                TypeAction(text="Recycle Bin", thought="Type the name Recycle Bin.", end_with_enter=True),
+                WaitAction(duration=0.3),
                 RightClickAction(thought=f"Right click {target_item}."),
                 WaitAction(duration=0.5),
                 SingleClickAction(thought="Click 'Restore'."),

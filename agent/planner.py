@@ -831,13 +831,11 @@ if __name__ == "__main__":  # python -m agent.planner
     sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
     sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), ".")))
 
-    # Easy to paste Windows paths - just replace the path string
-    # image_path = r"C:\Users\yinhengli\Desktop\projects\cua_knowledge_graph\test\logs\2025-10-13_13-19-08\000001-before_after_observation_action_system.png"
     image_path = (
-        r"C:\Users\yinhengli\Pictures\Screenshots\Screenshot 2025-10-22 230905.png"
+        r"Screenshot.png"
     )
     config_path = (
-        r"C:\Users\yinhengli\Desktop\projects\cua_knowledge_graph\agent\config_rag.json"
+        r"config_rag.json"
     )
 
     # Convert to Path objects

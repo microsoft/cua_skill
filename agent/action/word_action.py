@@ -11,8 +11,8 @@ __all__ = []
 use_hotkey = True
 use_mouse_click = False
 
-assert not (use_hotkey and use_mouse_click), "Only one of `use_hotkey` and `use_mouse_click` can be True."
-assert not (not use_hotkey and not use_mouse_click), "At least one of `use_hotkey` and `use_mouse_click` must be True."
+assert not (use_hotkey and use_mouse_click), "Only one of use_hotkey and use_mouse_click can be True."
+assert not (not use_hotkey and not use_mouse_click), "At least one of use_hotkey and use_mouse_click must be True."
 
 class WordBaseAction(BaseComposeAction):
     domain: Argument = Argument(

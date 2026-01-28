@@ -43,7 +43,7 @@
         "model_class": "gpt",
         "expertises": {
             "gpt": {
-                "deployment": "gpt-5-low",
+                "deployment": "gpt-5-2-low",
                 "azure_endpoint": true,
                 "api_version": "2025-01-01-preview",
                 "endpoint": "https://asgoai-eastus2.openai.azure.com",
