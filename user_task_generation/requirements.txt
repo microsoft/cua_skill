@@ -1,0 +1,26 @@
+# Requirements for user_task_generation module
+# 
+# This file contains the dependencies needed to run the user task generation
+# functionality, including argument value generators and task transformation utilities.
+
+# Core ML and NLP libraries
+torch>=2.0.0
+transformers>=4.30.0
+qwen-vl-utils
+
+# Progress bars and utilities  
+tqdm>=4.64.0
+
+# Note: The following are standard library modules and don't need to be installed:
+# - json
+# - os
+# - random
+# - argparse
+# - typing
+# - pathlib
+# - sys
+# - time
+# - hashlib
+# - re
+# - string
+# - datetime
