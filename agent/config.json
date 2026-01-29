@@ -23,15 +23,8 @@
                 "model": "uitars_v1_grounding",
                 "weight": 1.0,
                 "azure_endpoint": true,
-                "endpoint_url": "https://cuakg-grounding-endpoint.westus3.inference.ml.azure.com/score",
+                "endpoint_url": "Endpoint URL here",
                 "bearer_key_env_var": "UITARS_V1_BEARER_KEY"
-            },
-            {
-                "model": "phi_v_grounding",
-                "weight": 0.0,
-                "azure_endpoint": true,
-                "endpoint_url": "https://phi-v-grounding.uksouth.inference.ml.azure.com/score",
-                "bearer_key_env_var": "PHI_V_GROUNDING_BEARER_KEY"
             },
             {
                 "model": "uia_tree",
