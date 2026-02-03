@@ -230,6 +230,12 @@ class Planner:
             ),
         )
         prompt = prompt.replace("{ADDITIONAL_ACTIONS}", self.base_action_str_full)
+        self.logger.info(
+            LogMessage(
+                type="RAGPlanner.get_action_selection_prompt",
+                message=f"action_str={action_str_full}\nbase_action_str={self.base_action_str_full}",
+            )
+        )
         return prompt
 
 
