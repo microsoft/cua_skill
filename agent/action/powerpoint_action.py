@@ -1854,6 +1854,8 @@ class PowerPointInsertTable(PowerPointBaseAction):
 
 
 def select_table_cell(row_index: int, column_index: int) -> List[BaseAction]:
+    row_index = int(row_index)
+    column_index = int(column_index)
     move_down_actions = []
     for i in range(row_index - 1):
         move_down_actions.extend([

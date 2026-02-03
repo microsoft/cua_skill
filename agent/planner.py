@@ -157,15 +157,15 @@ class Planner:
     def get_base_actions(self):
         action_str_ls = []
         action_ls = []
-        for action_name in COMMON_EXECUTABLE_ACTIONS:
+        for i, action_name in enumerate(COMMON_EXECUTABLE_ACTIONS):
             action = _OP_REGISTRY.get(action_name)
             action_name = action.type
             arguments = list(action().arguments.keys())
             if hasattr(action, "descriptions") and action.descriptions:
                 action_descriptions = action.descriptions[0]
-                action_str = f"- {action_name}({', '.join(arguments)}): this is the action that {action_descriptions}"
+                action_str = f"index {i} - {action_name}({', '.join(arguments)}): this is the action that {action_descriptions}"
             else:
-                action_str = f"- {action_name}({', '.join(arguments)})"
+                action_str = f"index {i} - {action_name}({', '.join(arguments)})"
             action_str_ls.append(action_str)
             action_ls.append(action)
         self.base_action_str_full = "\n".join(action_str_ls)
@@ -173,14 +173,14 @@ class Planner:
 
     def get_action_selection_prompt(self, candidate_actions, query):
         action_str_ls = []
-        for action in candidate_actions:
+        for i, action in enumerate(candidate_actions):
             action_name = action.type
             arguments = list(action().arguments.keys())
             if hasattr(action, "descriptions") and action.descriptions:
                 action_descriptions = action.descriptions[0]
-                action_str = f"- {action_name}({', '.join(arguments)}): this is the action that {action_descriptions}"
+                action_str = f"index {i} - {action_name}({', '.join(arguments)}): this is the action that {action_descriptions}"
             else:
-                action_str = f"- {action_name}({', '.join(arguments)})"
+                action_str = f"index {i} - {action_name}({', '.join(arguments)})"
             action_str_ls.append(action_str)
         action_str_full = "\n".join(action_str_ls)
         prompt = """You are a computer use agent. Your goal is to help the user complete their task by selecting the most appropriate action from the available options.
@@ -212,7 +212,7 @@ class Planner:
             "selected_action": "<action_name>",
             "action_goal": "<brief description of what this action is doing>",
             "action_category_index": "<index of the action category>, 0 is for Primary Action, 1 is for Additional Base Action",
-            "action_index": "<index of the selected action in the corresponding action list, start from 0>"
+            "action_index": "<index of the selected action in the corresponding action list, specificed by 'index -' >"
         }}
         """
 
@@ -256,7 +256,7 @@ class Planner:
         {{
             "selected_action": "<action_name>",
             "action_goal": "<brief description of what this action is doing>",
-            "action_index": "<index of the selected action in the corresponding action list, start from 0, max index is {COMMON_EXECUTABLE_ACTIONS_LEN}>"
+            "action_index": "<index of the selected action in the corresponding action list, start from 0, max index is {COMMON_EXECUTABLE_ACTIONS_LEN}, specified by 'index -' >"
         }}
         """
 
