@@ -39,20 +39,20 @@ The core insight is that many desktop tasks share common action patterns (e.g., 
 ## Architecture
 
 ```
-┌───────────────────────────────────────────────────── ┐
-│                     CUA Skill Agent                  │
+┌───────────────────────────────────────────────────────┐
+│                      CUA Skill Agent                  │
 ├──────────────┬───────────────┬────────────────────────┤
 │   Planner    │   Retriever   │   Mixture Grounding    │
 │  (LLM-based) │  (BM25 +      │  (UI-TARS / UIA Tree)  │
 │              │   Semantic)   │                        │
 ├──────────────┴───────────────┴────────────────────────┤
-│                   Action System                       │
+│                    Action System                      │
 │  ┌────────────┐  ┌────────────────┐  ┌─────────────┐  │
 │  │ Base       │  │ Common         │  │ App-Specific│  │
 │  │ Actions    │  │ Actions        │  │ Skills      │  │
 │  └────────────┘  └────────────────┘  └─────────────┘  │
 ├───────────────────────────────────────────────────────┤
-│               Desktop Environment                     │
+│                Desktop Environment                    │
 │          (Screenshots, A11y Tree, pyautogui)          │
 └───────────────────────────────────────────────────────┘
 ```
